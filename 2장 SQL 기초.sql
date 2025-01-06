@@ -75,3 +75,12 @@ CREATE TABLE Tb1User (
         insert into `Tb1Product` values (1004, '세탁기', 1000000, 80, '삼성전자', '2021-01-01');
         insert into `Tb1Product` values (1005, '컴퓨터', 1500000, 20, '삼성전자', '2023-10-01');
         insert into `Tb1Product` values (1006, '휴대폰', 950000, 102, null, null);
+        
+        #실습 2-9
+        select * from `Tb1User`;
+        select `user_name` from `Tb1User`;
+        select `User_name`, `User_hp` from `Tb1user`;
+        select * from `Tb1User` where `user_id` = 'p102';
+        select * from `Tb1User` where `user_id`='p104' or `user_id`='p105';
+        select * from `Tb1User` where `user_addr`='부산시 금정구';
+        
