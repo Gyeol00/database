@@ -204,7 +204,7 @@ insert into `User5` (`name`, `gender`, `age`, `addr`) values ('김유신', 'M', 
 insert into `User5` (`name`, `gender`, `age`, `addr`) values ('김춘추', 'M', '23', '경남 경주시');
 insert into `User5` (`name`, `gender`, `age`, `addr`) values ('장보고', 'M', '35', '전남 완도시');
 insert into `User5` (`name`, `gender`, `age`, `addr`) values ('강감찬', 'M', '42', '서울시 관악구');
-sle
+
 
 
             
