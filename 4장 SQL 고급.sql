@@ -83,20 +83,26 @@ INSERT INTO `Sales` (`uid`, `year`, `month`, `sale`) VALUES ('a104', 2020, 2,  8
 INSERT INTO `Sales` (`uid`, `year`, `month`, `sale`) VALUES ('a105', 2020, 2, 180000);
 INSERT INTO `Sales` (`uid`, `year`, `month`, `sale`) VALUES ('a108', 2020, 2,  76000);
     
-    #실습 4-3
-    select * from `Member` where `name` = '김유신';
-    select * from `Member` where `pos` = '차장' and `dep`=101;
-    select * from `Member` where `pos` = '차장' or `dep`=101;
-    select * from `Member` where `name` <> '김춘추';
-    select * from `Member` where `name` != '김춘추';
-    select * from `Member` where `pos` = '사원' or`pos` = '대리';
-    select * from `Member` where `pos` in ('사원', '대리');   
-    select * from `Member` where `dep` in (101, 102, 103);
-    select * from `Member` where `name` like '%신';
-    select * from `Member` where `name` like '김%';
-    select * from `Member` where `name` like '김__';
-    select * from ``;
-    select * from `Member` where `name` like '정_';
+#실습 4-3
+select * from `Member` where `name` = '김유신';
+select * from `Member` where `pos` = '차장' and `dep`=101;
+select * from `Member` where `pos` = '차장' or `dep`=101;
+select * from `Member` where `name` <> '김춘추';
+select * from `Member` where `name` != '김춘추';
+select * from `Member` where `pos` = '사원' or`pos` = '대리';
+select * from `Member` where `pos` in ('사원', '대리');   
+select * from `Member` where `dep` in (101, 102, 103);
+select * from `Member` where `name` like '%신';
+select * from `Member` where `name` like '김%';
+select * from `Member` where `name` like '김__';
+select * from `Member` where `name` like '_성_';
+select * from `Member` where `name` like '정_';
+select * from `Sales` where `sale` > 50000;
+select * from `Sales` where `sale` >= 50000 and `sale` < 100000 and `month`=1;
+select * from `Sales` where `sale` between 50000 and 100000;
+select * from `Sales` where `sale` not between 50000 and 100000;
+select * from `Sales` where `year` in(2020);
+select * from `Sales` where `month` in(1, 2);
     
 #실습 4-4
 select * from `Sales` order by `sale`;    
