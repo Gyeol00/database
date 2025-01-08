@@ -159,16 +159,57 @@ from `Sales` where `year`=2019 and `month`=2 and `sale` > 50000;
 
 #실습 4-9
 select min(`sale`) as `최저`, max(`sale`) as `최고` from `Sales` where `year`=2020;
+
+#자습
+select sum(`sale`) as `총합`, avg(`sale`) as `평균` from `Sales` where `year`=2019 and `month`=2 and `sale` >= 50000;
+select sum(`sale`) as `총합`, avg(`sale`) as `평균` from `Sales` where `year`=2020 and `month`=1 and `sale` > 100000;
+select sum(`sale`) as `총합`, avg(`sale`) as `평균`
+from `Sales` where `year`=2020 and `month`=2 and `sale` between 50000 and 100000;
+select sum(`sale`) as `총합`, avg(`sale`) as `평균`
+from `Sales` where `year`=2020 and `month`=2 and `sale` >= 100000;    
+
+select sum(`sale`) as `총합`, avg(`sale`) as `평균`
+from `Sales` where `year`=2020 and `month`=1 and `sale` >= 50000;
+
+select avg(`sale`) as `평균` from `Sales` where `year`=2020 and `month`=2 and `sale` <= 100000;
     
+select min(`sale`) as `가장 낮은 매출` from `sales` where `year`=2019 and `month`=1;    
+
+select max(`sale`) as `max_sale` from `Sales` where `year`=2020 and `month`=1;
+
+select sum(`sale`) as `합계` from `sales` where `year`=2020 and `month`=1 and `sale` > 70000 and `sale` <= 150000;
     
+select avg(`sale`) as `평균`
+from `Sales`
+where `year`=2020 and `month`=2 and `sale` > 100000;	
+
+select `uid`,`sale`
+from `Sales`
+where `year`=2018 and `month`=1
+order by `sale` desc
+limit 5;
+
+select avg(`sale`) as `평균` from `Sales`
+where `year`=2020 and `month`=2 and `sale` > 50000 and `sale` <= 100000;	
     
+select uid, sale from `Sales`
+where `year`=2019 and `month`=2 and `sale` <= 100000
+order by `sale` desc
+limit 3;    
+
+select sum(`sale`) as `총합` from `Sales`
+where `year`=2020 and `month`=1 and `sale` > 100000;
+
+select avg(`sale`) as `평균` from `Sales`
+where `year`=2019 and `month`=2 and `sale` > 50000 and `sale` <= 100000;
     
-    
-    
-    
-    
-    
-    
-    
-    
+select uid, sale from `Sales`
+where `year`=2020 and `month`=2 and `sale` > 70000
+order by `sale` desc
+limit 3;  
+
+select uid, sale as `min_sale` from `Sales`
+where `year`=2018 and `month`=1
+order by `sale` asc
+limit 1;
     
