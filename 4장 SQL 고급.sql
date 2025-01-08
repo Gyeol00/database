@@ -212,4 +212,37 @@ select uid, sale as `min_sale` from `Sales`
 where `year`=2018 and `month`=1
 order by `sale` asc
 limit 1;
+
+#연습
+select 'name', 'salary' from `employees`
+where `salary` > 3000;
+
+select `product_name`, `price` from `products`
+where `price` order by `price` asc;
+
+select `order_id`, `order_date` from `orders`
+where `year`=2024;
+
+select sum(`total_sales`) as `총합` from `sales`
+where `region`;
+
+select avg(`average salary`) as `평균` from `employees`
+where `department` >= 4000;
+
+select `student_name`, `math_score` from `students`
+where `math_score` > `english_score`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
