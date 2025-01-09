@@ -160,6 +160,112 @@ from `Sales` where `year`=2019 and `month`=2 and `sale` > 50000;
 #실습 4-9
 select min(`sale`) as `최저`, max(`sale`) as `최고` from `Sales` where `year`=2020;
 
+#실습 4-10
+select @@sql_mode;
+set session sql_mode = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+select * from `Sales` group by `uid`;
+select * from `Sales` group by `year`;
+select * from `Sales` group by `uid`, `year`;
+select `uid`, count(*) as `건수` from `Sales` group by `uid`;
+select `uid`, sum(`sale`) as `합계` from `Sales` group by `uid`;
+select `uid`, avg(`sale`) as `평균` from `sales` group by `uid`;
+select `uid`, `year`, sum(`sale`) as `합계` from `Sales` group by `uid`, `year`;
+select `uid`, `year`, sum(sale) as `합계` from `Sales` group by `uid`, `year` order by `year` asc, `합계` desc;
+select `uid`, `year`, sum(sale) as `합계` from `Sales` where `sale` >= 50000 group by `uid`, `year` order by `합계` desc;
+
+
+#실습 4-11
+select
+	`uid`, sum(`sale`) as `합계`
+from 
+	`Sales`
+group by 
+	`uid`
+having
+	`합계` >= 200000;
+
+#실습 4-12
+create table `Sales2` like `Sales`; #테이블 복사
+insert into `Sales2` select * from `Sales`; #내용 복사
+update `Sales2` set `year` = `year` + 3; #년도에 +3
+select * from `Sales2`;
+
+select * from `Sales`
+union
+select * from `Sales2`;
+
+select * from `Sales` where `sale` >=100000
+union
+select * from `Sales2` where `sale` >=100000;
+
+select `uid`, `year`, `sale` from `Sales`
+union
+select `uid`, `year`, `sale` from `Sales2`;
+
+select `uid`, `year`, sum(sale) as `합계` from `Sales`
+group by `uid`, `year`
+union
+select `uid`, `year`, sum(sale) as `합계` from `Sales2`
+group by `uid`, `year`
+order by `year` asc, `합계` desc;
+
+#실습 4-13
+select * from `Sales` inner join `Member` on `Sales`.`uid` = `Member`.`uid`;
+select * from `Member` as a
+join `Department` as b
+on a.dep = b.depNo;
+
+select * from `Sales` as a
+join `Member` as b using (`uid`);
+
+
+select * from `Sales` as a
+join `Member` as b on a.uid = b.uid
+join `Department` as c on b.dep = c.depNo;
+
+#실습 4-14
+insert into `Sales` (`uid`, `year`, `month`, `sale`) values ('a201', 2020, 2, 15500);
+select * from `Sales` as a
+right join `Member` as b on a.uid = b.uid; #inner, left, right 차이 확인
+
+#실습 4-15
+select `uid`, a.`name`, `pos`, b.`name`
+from `Member` as a
+join `department` as b on a.dep = b.depNo;
+
+select * from `Sales` as a, `Member` as b
+where a.uid = b.uid;
+
+#실습 4-16
+select sum(`sale`) as `김유신 2019년 매출 합` from `Sales` as a
+join `Member` as b on a.uid = b.uid
+where `name`='김유신' and `year`=2019;
+
+#실습 4-17
+select 
+	b.`name`,
+    c.`name`,
+    b.`pos`,
+    a.`year`,
+	sum(`sale`) as `매출합`
+from `Sales` as a
+join `Member` as b on a.uid = b.uid
+join `department` as c on b.dep = c.depNo
+where `year`=2019 and `sale` >= 50000
+group by a.`uid`
+having `매출합` >= 100000
+order by `매출합` desc;
+
+
+
+
+
+
+
+
+
+
 #자습
 select sum(`sale`) as `총합`, avg(`sale`) as `평균` from `Sales` where `year`=2019 and `month`=2 and `sale` >= 50000;
 select sum(`sale`) as `총합`, avg(`sale`) as `평균` from `Sales` where `year`=2020 and `month`=1 and `sale` > 100000;
@@ -212,37 +318,4 @@ select uid, sale as `min_sale` from `Sales`
 where `year`=2018 and `month`=1
 order by `sale` asc
 limit 1;
-
-#연습
-select 'name', 'salary' from `employees`
-where `salary` > 3000;
-
-select `product_name`, `price` from `products`
-where `price` order by `price` asc;
-
-select `order_id`, `order_date` from `orders`
-where `year`=2024;
-
-select sum(`total_sales`) as `총합` from `sales`
-where `region`;
-
-select avg(`average salary`) as `평균` from `employees`
-where `department` >= 4000;
-
-select `student_name`, `math_score` from `students`
-where `math_score` > `english_score`;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
