@@ -86,7 +86,7 @@ select `a_item_dist`, `a_item_name` from `bank_account`;
 #실습 2-9
 select distinct `a_item_dist`, `a_item_name` from `bank_account`;
 
-###실습 2-10
+#실습 2-10
 select * from `bank_account` where `a_item_dist`='S1' and `a_balance` >= 1000000;
 
 #실습 2-11
@@ -139,26 +139,86 @@ select `t_dist`,
 select `t_dist`, count(`t_no`) from `bank_transaction` group by `t_dist`;
 
 #실습 2-23
-select `t_a_no`, `t_dist`;
+select `t_a_no`, `t_dist`, sum(`t_amount`)
+from `bank_transaction`
+where `t_dist`=1
+group by `t_a_no`;
 
 #실습 2-24
+select
+	`t_a_no`,
+    `t_dist`,
+    sum(`t_amount`) as `합계`
+from `bank_transaction`
+where `t_dist` = 1
+group by `t_a_no`
+having `합계` >= 100000
+order by `합계` desc;    
+
 #실습 2-25
+select * from `bank_account` as a
+join `bank_customer` as b
+on a.a_c_no = b.c_no;
+
 #실습 2-26
+select
+	`a_no` as `계좌번호`,
+    `a_item_name` as `계좌이름`,
+    `c_no` as `주민번호(사업자번호)`,
+    `c_name` as `고객명`,
+    `a_balance` as `현재잔액`
+from `bank_account` as a
+join `bank_customer` as b
+on a.a_c_no = b.c_no;
+
 #실습 2-27
+select * from `bank_transaction` as a
+join `bank_account` as b
+on a.t_a_no = b.a_no;
+
 #실습 2-28
+select
+	`t_no` as `거래번호`,
+    `t_a_no` as `계좌번호`,
+    `a_c_no` as `고객번호(주민번호)`,
+    `t_dist` as `거래구분`,
+    `t_amount` as `거래금액`,
+    `t_datetime` as `거래일자`
+from `bank_account` as a
+join `bank_transaction` as b
+on a.a_no = b.t_a_no;
+
 #실습 2-29
+select
+	`t_no`,
+    `a_no`,
+    `c_no`,
+    `t_dist`,
+    `a_item_name`,
+    `c_name`,
+    `t_amount`,
+    `t_datetime`
+from `bank_transaction` as a
+join `bank_account` as b on a.t_a_no = b.a_no
+join `bank_customer` as c on b.a_c_no = c.c_no
+where `t_dist` = 1
+order by `t_amount` desc;
+
 
 select @@sql_mode;
 set session sql_mode = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 #실습 2-30
-select `t_no`, `a_no`, `c_no`, `t_dist`, `a_item_name`, `c_name`,
-count(`t_no`) as `거래건수`
+select
+	`t_no`,
+    `a_no`,
+    `c_no`,
+    `t_dist`,
+    `a_item_name`,
+    `c_name`, count(`t_no`) as `거래건수`
 from `bank_transaction` as a
-join `bank_customer` as b
-on a.t_dist = b.c_dist
-join `bank_account` as c
-on b.c_no = c.a_c_no
+join `bank_account` as b on a.t_a_no = b.a_no
+join `bank_customer` as c on b.a_c_no = c.c_no
 where `t_dist` in(1, 2) and `c_dist` = 1
-group by `t_dist`, `거래건수`
-order by `t_dist`, `거래건수` desc;
+group by `c_no`
+order by `t_dist` desc;
 
