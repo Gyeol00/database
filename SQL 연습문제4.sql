@@ -251,24 +251,22 @@ join customers c on b.customer_id=c.customer_id
 group by b.`customer_id`
 order by tickets_total desc;
 
-########실습 4-29
+#실습 4-29
 select
-	b.booking_id,
-    b.customer_id,
-    b.movie_id,
-    maxtickets.max_tickets
-from bookings b
+	b.`booking_id`,
+    b.`customer_id`,
+    b.`movie_id`,
+    MaxTickets.max_tickets
+from `bookings` as b
 join (
 	select movie_id, max(num_tickets) as max_tickets
-    from bookings
-) as maxtickets
-on b.novie
-    where 
+	from `Bookings`
+    group by `movie_id`
+) as MaxTickets on b.movie_id = MaxTickets and b.num_tickets = MaxTickets.max_tickets;
 
 #############실습 4-30;
 select @@sql_mode;
 set session sql_mode = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
 
 
 
