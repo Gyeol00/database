@@ -145,72 +145,103 @@ select * from `Book` order by `price` desc limit 3;
 #실습 5-28
 select * from `Book` order by `price` limit 3;
 
-######실습 5-29
-select sum(`saleprice`) as `총판매액` from `order`;
+#실습 5-29
+select sum(`salePrice`) as `총판매액` from `order`;
 
-#####실습 5-30
+#실습 5-30
 select
 	sum(`saleprice`) as `총판매액`,
     avg(`saleprice`) as `평균값`,
     min(`saleprice`) as `최저가`,
     max(`saleprice`) as `최고가`
-from `order`;
+from `customer` c
+join `order` o on c.custid=o.custId;
 
-#5-31
-select count(*) from `Book`;
+#실습 5-31
+select count(*) as `판매건수` from `Book`;
 
-#5-32
-update `Book` set `bookName` = replace(`bookName`, '야구', '농구') where `bookName` like '%야구%';
-
+#실습 5-32
 select
 	`bookid`,
-    replace(`bookname`, '야구', '농구') as `bookname`, `publisher`, `price`
-from `book`;
+    replace(`bookname`, '야구', '농구') as `bookname`,
+    `publisher`,
+    `price`
+from `Book`;
 
-select * from `Book`;
-
-#######5-33
+#실습 5-33
 select
 	`custid`,
-	sum(o.`bookid`) as `수량`
-from `Book` as b
-join `Order` as o on b.`bookid` = o.`bookid`
-join `customer` as c on c.`custid` = o.`custid`
+    count(*) as `수량`
+from `order`
+where `saleprice` >= 8000
 group by `custid`
-having b.`price` >= 8000 and `수량` >= 2;
+having `수량` >= 2
+order by `custid`;
 
-#5-34
+#실습 5-34
 select * from `customer` as c
-join `Order` as o on c.`custId` = o.`custid`;
-
-select * from `customer` c, `order` o where c.`custId`=o.`custId`;
-
-#5-35
-select * from `customer` as c
-join `order` as o on c.`custid`=o.`custid`
+join `order` as o on c.`custId`=o.`custId`
 order by c.`custid`;
 
-#5-36
-select c.`name`, o.`saleprice` from `Book` as b
-join `Order` as o on b.`bookid`=o.`bookid`
-join `customer` as c on c.`custid`=o.`custid`;
+#실습 5-35
+select * from `customer` c, `order` o where c.`custId`=o.`custId` order by c.`custid`;
 
-#5-37
+#실습 5-36
+select c.`name`, o.`salePrice` from `customer` c, `order` o
+where c.`custId`=o.`custId`
+order by c.`custid`;
+
+#실습 5-37
 select
 	c.`name`,
-    sum(o.`saleprice`)
-from `Book` as b
-join `Order` as o on b.`bookid`=o.`bookid`
-join `customer` as c on c.`custid`=o.`custid`
-group by `customer`
+    sum(`salePrice`)
+from `customer` as c
+join `order` as o on c.custId = o.custId
+group by c.custid
 order by c.`name`;
 
-#5-40
+#실습 5-38
+select
+	c.`name`,
+    b.`bookname`
+from `customer` as c
+join `order` as o on c.`custId`=o.`custId`
+join `book` as b on b.`bookId`=o.`bookid`
+order by c.`custId`;
+
+#실습 5-39
+select
+	c.`name`,
+    b.`bookname`
+from `Book` as b
+join `order` as o on b.`bookid`=o.`bookId`
+join `customer` as c on c.`custId`=o.`custId`
+where o.`salePrice` = 20000;
+
+#실습 5-40
 select
 	c.`name`,
     o.`salePrice`
 from `customer` as c
-left join `order` as o on c.custId=o.custId
-;
+left join `order` as o on c.`custId`=o.`custId`;
+
+#실습 5-41
+select
+	sum(o.`saleprice`) as `총매출`
+from `customer` as c
+join `order` as o on c.`custId`=o.`custId`
+where c.`name` = '김연아';
+
+#####실습 5-42
+select * from `Book` as b
+join `order` as o on b.`bookid`=o.`bookid`;
+
+
+#실습 5-43
+#실습 5-44
+#실습 5-45
+#실습 5-46
+
+
 
 
