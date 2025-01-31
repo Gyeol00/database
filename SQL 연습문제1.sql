@@ -5,7 +5,7 @@
 #실습 1-1
 create database `Shop`;
 create user `Shop`@`%` identified by '1234';
-grant all privileges on Shop.* to `shop`@`%`;
+grant all privileges on Shop.* to 'Shop'@'%';
 flush privileges;
 
 #실습 1-2
@@ -24,6 +24,8 @@ create table `Product` (
     `price` 	int default null,
     `company`	varchar(10) not null
 );
+
+alter table `product` modify `prodNo` int auto_increment;
     
 create table `Order` (
 	`orderNo`      int auto_increment primary key,

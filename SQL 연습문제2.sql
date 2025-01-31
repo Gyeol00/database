@@ -9,6 +9,11 @@ grant all privileges on bank.* to 'bank'@'%';
 flush privileges;
 use bank;
 
+#All Select
+select * from `bank_customer` as c
+join `bank_account` as a on c.c_no=a.a_c_no
+join `bank_transaction` as t on t.t_a_no=a.a_no;
+
 #실습 2-2
 create table `bank_customer` (
 	`c_no`     char(14) primary key,
