@@ -141,7 +141,7 @@ select
 	`regStdNo`, 
     `regLecNo`, 
     `regMidScore`,
-    `regFinalScore`,
+    `regFinalScore`,shopping
     `regMidScore` + `regFinalScore` as `합`,
     case
 		when (`regMidScore` + `regFinalScore` >= 90) then 'A'
